@@ -45,7 +45,7 @@
         <url>git@github.com:lightbody/browsermob-proxy.git</url>
       <tag>HEAD</tag>
   </scm>
-
+    <!--
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -54,6 +54,13 @@
         <repository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>-->
+    <distributionManagement>
+        <repository>
+            <id>qoe-snapshots</id>
+            <name>QoE Snapshots</name>
+            <url>https://nexus.insight-performance.com/content/repositories/qoe-snapshots/</url>
         </repository>
     </distributionManagement>
 

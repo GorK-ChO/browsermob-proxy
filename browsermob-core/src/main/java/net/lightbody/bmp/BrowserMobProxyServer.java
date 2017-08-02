@@ -210,6 +210,11 @@ public class BrowserMobProxyServer implements BrowserMobProxy {
     private volatile InetSocketAddress upstreamProxyAddress;
 
     /**
+     * Let user manage upstream Proxy Authentication
+     */
+    private final AtomicBoolean manualUpstreamProxyAuth = new AtomicBoolean(false);
+
+    /**
      * The chained proxy manager that manages upstream proxies.
      */
     private volatile ChainedProxyManager chainedProxyManager;
@@ -366,6 +371,9 @@ public class BrowserMobProxyServer implements BrowserMobProxy {
         if (threadPoolConfiguration != null) {
             bootstrap.withThreadPoolConfiguration(threadPoolConfiguration);
         }
+
+        if (isManualUpstreamProxyAuth())
+            bootstrap.withManualUpstreamProxyAuth();
 
         proxyServer = bootstrap.start();
     }
@@ -652,6 +660,10 @@ public class BrowserMobProxyServer implements BrowserMobProxy {
                 throw new UnsupportedOperationException("AuthType " + authType + " is not supported for HTTP Authorization");
         }
     }
+
+    public void withManualUpstreamProxyAuth() { this.manualUpstreamProxyAuth.set(true); }
+
+    public boolean isManualUpstreamProxyAuth() { return this.manualUpstreamProxyAuth.get(); }
 
     @Override
     public void stopAutoAuthorization(String domain) {
